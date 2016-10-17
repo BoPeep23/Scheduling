@@ -12,6 +12,7 @@ typedef struct Job {
 } Job;
 
 void sort ( Job *jobs, int n) {
+	Job tempJob;
 	/* Using bubble sort because it has complexity of O(who cares),
 	 * it's only sorting 100 items at max. */
 	for(int i = 0; i < n-1; i++) {
@@ -20,7 +21,7 @@ void sort ( Job *jobs, int n) {
 		// bubble sort!
 		for(int j = 0; j < n-1; j++) {
 			if(jobs[j].arrivalTime > jobs[j+1].arrivalTime) {
-				Job tempJob = jobs[j];
+				tempJob = jobs[j];
 				jobs[j] = jobs[j+1];
 				jobs[j+1] = tempJob;
 				swap = true;
