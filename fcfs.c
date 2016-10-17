@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define JOB_SIZE (16)
 
@@ -13,15 +14,22 @@ typedef struct Job {
 
 void sort ( Job *jobs, int n) {
 
-	for(int i = 0; i < n; i++) {
+	for(int i = 0; i < n-1; i++) {
+		bool swap = false;
+		for(int j = 0; j < n-1; j++) {
+			if(jobs[j].arrivalTime > jobs[j+1].arrivalTime) {
+				Job tempJob = jobs[j];
+				jobs[j] = jobs[j+1];
+				jobs[j+1] = tempJob;
+				swap = true;
+			}
+		}
+		if(!swap) {
+			break;
+		}
 		
-	
 	}
-	
-
-
-
-} 
+}
 
 int main (int argc, char *argv[]) {
 
@@ -45,7 +53,20 @@ int main (int argc, char *argv[]) {
 
 	} 
 
-	sort(*jobs,numberJobs);
+	for(int i = 0; i < numberJobs; i++) {
+		printf("For job number %d arrival is %u and execution is %u\n", i, jobs[i].arrivalTime, jobs[i].executionTime);
+
+	}
+	printf("\n");
+
+	sort(jobs,numberJobs);
+
+	for(int i = 0; i < numberJobs; i++) {
+		printf("For job number %d arrival is %u and execution is %u\n", i, jobs[i].arrivalTime, jobs[i].executionTime);
+
+	}
+
+
 
 	return 0;
 
