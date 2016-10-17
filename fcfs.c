@@ -11,7 +11,6 @@ typedef struct Job {
 	unsigned int finishTime;	// time at run end
 } Job;
 
-
 void sort ( Job *jobs, int n) {
 	/* Using bubble sort because it has complexity of O(who cares),
 	 * it's only sorting 100 items at max. */
@@ -31,7 +30,6 @@ void sort ( Job *jobs, int n) {
 		if(!swap) {
 			break;
 		}
-		
 	}
 }
 
