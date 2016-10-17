@@ -8,7 +8,7 @@ typedef struct Job {
 	unsigned int arrivalTime;
 	unsigned int executionTime;
 	unsigned int startTime;
-	unsigned int endTime;
+	unsigned int finishTime;
 } Job;
 
 
@@ -53,23 +53,35 @@ int main (int argc, char *argv[]) {
 
 	} 
 
-	for(int i = 0; i < numberJobs; i++) {
-		printf("For job number %d arrival is %u and execution is %u\n", i, jobs[i].arrivalTime, jobs[i].executionTime);
-
-	}
-	printf("\n");
-
 	sort(jobs,numberJobs);
 
-	for(int i = 0; i < numberJobs; i++) {
-		printf("For job number %d arrival is %u and execution is %u\n", i, jobs[i].arrivalTime, jobs[i].executionTime);
+	jobs[0].startTime = jobs[0].arrivalTime;
+	jobs[0].finishTime = jobs[0].arrivalTime + jobs[0].executionTime;
 
+	for(int i = 1; i < numberJobs; i++) {
+		if(jobs[i].arrivalTime > jobs[i-1].finishTime) {
+			jobs[i].startTime = jobs[i].arrivalTime;
+		}
+		else {
+			jobs[i].startTime = jobs[i-1].finishTime;
+		}
+		jobs[i].finishTime = jobs[i].startTime + jobs[i].executionTime;
 	}
 
+	double averageTurnaround;
+	double averageResponse;
 
+	for(int i = 0; i < numberJobs; i++) {
+		averageTurnaround += (double)(jobs[i].finishTime - jobs[i].arrivalTime);
+		averageResponse   += (double)(jobs[i].startTime  - jobs[i].arrivalTime);
+	}
+
+	averageTurnaround = averageTurnaround / numberJobs;
+	averageResponse   = averageResponse   / numberJobs;
+
+	printf("%.5f\n", averageTurnaround);
+	printf("%.5f\n", averageResponse);
 
 	return 0;
 
-
 }
-
